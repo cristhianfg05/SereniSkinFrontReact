@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Container, Typography, Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import ProductDetailCard from './ProductDetailCard'; // Importar el componente ProductDetailCard
+import ProductDetailCard from './ProductDetailCard'; 
 
 const ProductDetailPage = () => {
     const navigate = useNavigate();
@@ -10,7 +10,7 @@ const ProductDetailPage = () => {
         navigate('/main');
     };
 
-    // Supongamos que estos son los detalles del producto obtenidos de algún lugar (base de datos, API, etc.)
+    // Aqui deberiamos obtener los productos de la API
     const productDetails = {
         title: 'Producto 1',
         description: 'Descripción del producto 1',
@@ -32,7 +32,6 @@ const ProductDetailPage = () => {
                     <Typography variant="h4" component="h1" gutterBottom>
                         Detalles del Producto
                     </Typography>
-                    {/* Usar la tarjeta para mostrar los detalles del producto */}
                     <ProductDetailCard 
                         title={productDetails.title} 
                         description={productDetails.description} 

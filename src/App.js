@@ -6,6 +6,7 @@ import Register from './components/auth/Register';
 import MainPage from './components/MainPage';
 import AccountPage from './components/AccountPage';
 import ProductDetailPage from './components/ProductDetailPage'; 
+import CartPage from './components/CartPage';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/main" element={<MainPage />} />
           <Route path="/account" element={<AccountPage />} />
+          <Route path="/cart" element={<CartPage />} /> 
           <Route path="/product/:productId" element={<ProductDetailPage />} /> 
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>

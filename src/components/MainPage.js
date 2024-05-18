@@ -19,6 +19,10 @@ const MainPage = () => {
         navigate('/account');
     };
 
+    const handleCart = () => {
+        navigate('/cart');
+    };
+
     const handleProductDetail = (productId) => {
         navigate(`/product/${productId}`);
     };
@@ -31,6 +35,7 @@ const MainPage = () => {
                         Nombre de la Tienda
                     </Typography>
                     <Button color="inherit" onClick={handleAccount}>Mi Cuenta</Button>
+                    <Button color="inherit" onClick={handleCart}>Carrito</Button>
                     <Button color="inherit" onClick={handleLogout}>Cerrar Sesión</Button>
                 </Toolbar>
             </AppBar>
@@ -58,13 +63,18 @@ const MainPage = () => {
                                 </CardContent>
                                 <CardActions>
                                     <Button 
+                                        variant="contained" 
                                         size="small" 
                                         color="primary" 
                                         onClick={() => handleProductDetail(product.id)} 
                                     >
                                         Ver Detalles
                                     </Button>
-                                    <Button size="small" color="secondary">
+                                    <Button 
+                                        variant="contained" 
+                                        size="small" 
+                                        color="secondary"
+                                    >
                                         Añadir al Carrito
                                     </Button>
                                 </CardActions>
