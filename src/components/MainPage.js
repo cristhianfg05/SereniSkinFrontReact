@@ -19,6 +19,10 @@ const MainPage = () => {
         navigate('/account');
     };
 
+    const handleProductDetail = (productId) => {
+        navigate(`/product/${productId}`);
+    };
+
     return (
         <Box>
             <AppBar position="static">
@@ -53,7 +57,11 @@ const MainPage = () => {
                                     </Typography>
                                 </CardContent>
                                 <CardActions>
-                                    <Button size="small" color="primary">
+                                    <Button 
+                                        size="small" 
+                                        color="primary" 
+                                        onClick={() => handleProductDetail(product.id)} 
+                                    >
                                         Ver Detalles
                                     </Button>
                                     <Button size="small" color="secondary">
