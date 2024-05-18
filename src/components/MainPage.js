@@ -1,5 +1,6 @@
 import React from 'react';
 import { AppBar, Toolbar, Typography, Container, Grid, Card, CardContent, CardMedia, CardActions, Button, Box } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 const products = [
     { id: 1, name: 'Producto 1', description: 'Descripción del producto 1', price: '$10', image: 'https://via.placeholder.com/150' },
@@ -8,6 +9,16 @@ const products = [
 ];
 
 const MainPage = () => {
+    const navigate = useNavigate();
+
+    const handleLogout = () => {
+        navigate('/');
+    };
+
+    const handleAccount = () => {
+        navigate('/account');
+    };
+
     return (
         <Box>
             <AppBar position="static">
@@ -15,8 +26,8 @@ const MainPage = () => {
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                         Nombre de la Tienda
                     </Typography>
-                    <Button color="inherit">Mi Cuenta</Button>
-                    <Button color="inherit">Cerrar Sesión</Button>
+                    <Button color="inherit" onClick={handleAccount}>Mi Cuenta</Button>
+                    <Button color="inherit" onClick={handleLogout}>Cerrar Sesión</Button>
                 </Toolbar>
             </AppBar>
             <Container sx={{ py: 8 }}>
