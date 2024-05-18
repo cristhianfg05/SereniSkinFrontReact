@@ -1,7 +1,16 @@
 import React from 'react';
 import { Button, TextField, Box, Typography, Paper, Grid } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
+    const navigate = useNavigate();
+
+    const handleLogin = () => {
+        // Aquí añadirías la lógica de autenticación
+        // Si es exitosa, redirigir a la página principal
+        navigate('/main');
+    };
+
     return (
         <Box 
             sx={{
@@ -32,7 +41,7 @@ const Login = () => {
                     </Grid>
                     <Grid item width="100%">
                         <TextField 
-                            label="Password" 
+                            label="Contraseña" 
                             type="password" 
                             variant="outlined" 
                             fullWidth 
@@ -53,6 +62,7 @@ const Login = () => {
                                     backgroundColor: '#1565c0',
                                 }
                             }}
+                            onClick={handleLogin}
                         >
                             Login
                         </Button>

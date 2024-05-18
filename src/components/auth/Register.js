@@ -1,7 +1,16 @@
 import React from 'react';
 import { Button, TextField, Box, Typography, Paper, Grid } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
+    const navigate = useNavigate();
+
+    const handleRegister = () => {
+        // Aquí añadirías la lógica de registro
+        // Si es exitosa, redirigir a la página principal
+        navigate('/main');
+    };
+
     return (
         <Box 
             sx={{
@@ -61,6 +70,7 @@ const Register = () => {
                                     backgroundColor: '#1565c0',
                                 }
                             }}
+                            onClick={handleRegister}
                         >
                             Registrarse
                         </Button>
