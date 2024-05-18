@@ -1,13 +1,9 @@
 import React from 'react';
-import { Typography, Container, Box, Grid, Card, CardContent, CardMedia, Button } from '@mui/material';
-
-
-const cartProducts = [
-    { id: 1, name: 'Producto 1', price: '$10', image: 'https://via.placeholder.com/150' },
-    { id: 2, name: 'Producto 2', price: '$20', image: 'https://via.placeholder.com/150' },
-];
+import { Typography, Container, Grid, Card, CardContent, CardMedia, Button } from '@mui/material';
+import { useCart } from './CartContext'; 
 
 const CartPage = () => {
+    const { cartProducts, removeFromCart } = useCart(); 
 
     return (
         <Container sx={{ py: 8 }}>
@@ -37,7 +33,7 @@ const CartPage = () => {
                                         {product.price}
                                     </Typography>
                                 </CardContent>
-                                <Button variant="contained" color="secondary">
+                                <Button variant="contained" color="secondary" onClick={() => removeFromCart(product.id)}>
                                     Eliminar del carrito
                                 </Button>
                             </Card>

@@ -1,6 +1,7 @@
 import React from 'react';
 import { AppBar, Toolbar, Typography, Container, Grid, Card, CardContent, CardMedia, CardActions, Button, Box } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import { useCart } from './CartContext';
 
 const products = [
     { id: 1, name: 'Producto 1', description: 'Descripción del producto 1', price: '$10', image: 'https://via.placeholder.com/150' },
@@ -10,6 +11,7 @@ const products = [
 
 const MainPage = () => {
     const navigate = useNavigate();
+    const { addToCart } = useCart();
 
     const handleLogout = () => {
         navigate('/');
@@ -62,19 +64,10 @@ const MainPage = () => {
                                     </Typography>
                                 </CardContent>
                                 <CardActions>
-                                    <Button 
-                                        variant="contained" 
-                                        size="small" 
-                                        color="primary" 
-                                        onClick={() => handleProductDetail(product.id)} 
-                                    >
+                                    <Button variant="contained" size="small" color="primary" onClick={() => handleProductDetail(product.id)}>
                                         Ver Detalles
                                     </Button>
-                                    <Button 
-                                        variant="contained" 
-                                        size="small" 
-                                        color="secondary"
-                                    >
+                                    <Button variant="contained" size="small" color="secondary" onClick={() => addToCart(product)}>
                                         Añadir al Carrito
                                     </Button>
                                 </CardActions>
