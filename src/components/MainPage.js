@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { AppBar, Toolbar, Typography, Container, Grid, Card, CardContent, CardMedia, CardActions, Button, Box } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import { useCart } from './CartContext';
 
 const MainPage = () => {
     const navigate = useNavigate();
-    const { addToCart } = useCart();
     const [products, setProducts] = useState([]); // Estado inicial vacío para los productos
 
     useEffect(() => {
@@ -73,9 +71,6 @@ const MainPage = () => {
                                 <CardActions>
                                     <Button variant="contained" size="small" color="primary" onClick={() => handleProductDetail(product.id)}>
                                         Ver Detalles
-                                    </Button>
-                                    <Button variant="contained" size="small" color="secondary" onClick={() => addToCart(product)}>
-                                        Añadir al Carrito
                                     </Button>
                                 </CardActions>
                             </Card>
