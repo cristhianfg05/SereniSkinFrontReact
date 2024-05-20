@@ -1,24 +1,29 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Box, Container, Typography, Button } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
-import ProductDetailCard from './ProductDetailCard'; 
+import { useNavigate, useParams } from 'react-router-dom';
+import ProductDetailCard from './ProductDetailCard';
 
 const ProductDetailPage = () => {
+    const { productId } = useParams(); // Extrae el ID del producto de la URL
     const navigate = useNavigate();
+    const [productDetails, setProductDetails] = useState(null);
+
+    useEffect(() => {
+        const fetchProductDetails = async () => {
+            const response = await fetch(`http://localhost:4000/products/${productId}`); // Coloca aquí la URL de tu API
+            const data = await response.json();
+            setProductDetails(data); // Actualiza el estado con los detalles del producto
+        };
+
+        fetchProductDetails();
+    }, [productId]);
 
     const handleBack = () => {
         navigate('/main');
     };
 
-    // Aqui deberiamos obtener los productos de la API
-    const productDetails = {
-        title: 'Producto 1',
-        description: 'Descripción del producto 1',
-        available: true,
-    };
-
     return (
-        <Box 
+        <Box
             sx={{
                 height: '100vh',
                 display: 'flex',
@@ -32,15 +37,19 @@ const ProductDetailPage = () => {
                     <Typography variant="h4" component="h1" gutterBottom>
                         Detalles del Producto
                     </Typography>
-                    <ProductDetailCard 
-                        title={productDetails.title} 
-                        description={productDetails.description} 
-                        available={productDetails.available} 
-                    />
+                    {productDetails ? (
+                        <ProductDetailCard
+                            title={productDetails.name}
+                            description={productDetails.description}
+                            available={productDetails.stock > 0}
+                        />
+                    ) : (
+                        <Typography>Cargando...</Typography>
+                    )}
                 </Box>
-                <Button 
-                    variant="contained" 
-                    color="primary" 
+                <Button
+                    variant="contained"
+                    color="primary"
                     onClick={handleBack}
                     sx={{
                         padding: '0.75rem',
