@@ -20,6 +20,7 @@ const MainPage = () => {
     }, []); // El array vacío asegura que el efecto se ejecute solo una vez al montar el componente
 
     const handleLogout = () => {
+        sessionStorage.removeItem('token');
         navigate('/');
     };
 
