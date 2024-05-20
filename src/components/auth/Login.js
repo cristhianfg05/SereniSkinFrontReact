@@ -1,18 +1,47 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, TextField, Box, Typography, Paper, Grid } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
     const navigate = useNavigate();
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
 
-    const handleLogin = () => {
-        // Aquí añadirías la lógica de autenticación
-        // Si es exitosa, redirigir a la página principal
-        navigate('/main');
+    const handleLogin = async () => {
+        // Preparar el JSON que será enviado
+        const requestBody = {
+            identifier: email,
+            password: password
+        };
+
+        console.log('Enviando JSON:', JSON.stringify(requestBody));  // Mostrar el JSON enviado en consola
+
+        try {
+            const response = await fetch('http://localhost:4000/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(requestBody)
+            });
+            const data = await response.json();
+
+            console.log('Respuesta del servidor:', data);  // Mostrar la respuesta del servidor en consola
+
+            if (response.ok) {
+                sessionStorage.setItem('token', data.token);  // Almacenar el token en sessionStorage
+                navigate('/main');  // Navegar a la página principal tras el inicio de sesión exitoso
+            } else {
+                alert('Error en el inicio de sesión: ' + (data.message || 'Error desconocido'));  // Mostrar mensaje de error
+            }
+        } catch (error) {
+            console.error('Error al conectar con el servidor:', error);  // Mostrar errores de conexión en consola
+            alert('Error al conectar con el servidor');
+        }
     };
 
     return (
-        <Box 
+        <Box
             sx={{
                 height: '100vh',
                 display: 'flex',
@@ -32,30 +61,34 @@ const Login = () => {
                         </Typography>
                     </Grid>
                     <Grid item width="100%">
-                        <TextField 
-                            label="Email" 
-                            variant="outlined" 
-                            fullWidth 
-                            margin="normal" 
+                        <TextField
+                            label="Email"
+                            variant="outlined"
+                            fullWidth
+                            margin="normal"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
                         />
                     </Grid>
                     <Grid item width="100%">
-                        <TextField 
-                            label="Contraseña" 
-                            type="password" 
-                            variant="outlined" 
-                            fullWidth 
-                            margin="normal" 
+                        <TextField
+                            label="Contraseña"
+                            type="password"
+                            variant="outlined"
+                            fullWidth
+                            margin="normal"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
                         />
                     </Grid>
                     <Grid item width="100%">
-                        <Button 
-                            variant="contained" 
-                            color="primary" 
-                            fullWidth 
-                            sx={{ 
-                                fontSize: '1rem', 
-                                padding: '0.75rem', 
+                        <Button
+                            variant="contained"
+                            color="primary"
+                            fullWidth
+                            sx={{
+                                fontSize: '1rem',
+                                padding: '0.75rem',
                                 boxShadow: 2,
                                 borderRadius: '8px',
                                 '&:hover': {

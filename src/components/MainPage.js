@@ -40,7 +40,7 @@ const MainPage = () => {
             <AppBar position="static">
                 <Toolbar>
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                        Nombre de la Tienda
+                        Sereni Skin
                     </Typography>
                     <Button color="inherit" onClick={handleAccount}>Mi Cuenta</Button>
                     <Button color="inherit" onClick={handleCart}>Carrito</Button>

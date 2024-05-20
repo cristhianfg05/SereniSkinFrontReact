@@ -2,17 +2,19 @@ import React, { useEffect, useState } from 'react';
 import { Box, Container, Typography, Button } from '@mui/material';
 import { useNavigate, useParams } from 'react-router-dom';
 import ProductDetailCard from './ProductDetailCard';
+import { useCart } from './CartContext'; // Asegúrate de que la importación sea correcta según tu estructura de archivos
 
 const ProductDetailPage = () => {
-    const { productId } = useParams(); // Extrae el ID del producto de la URL
+    const { productId } = useParams();
     const navigate = useNavigate();
     const [productDetails, setProductDetails] = useState(null);
+    const { addToCart } = useCart(); // Usar el hook useCart para acceder a la función addToCart
 
     useEffect(() => {
         const fetchProductDetails = async () => {
-            const response = await fetch(`http://localhost:4000/products/${productId}`); // Coloca aquí la URL de tu API
+            const response = await fetch(`http://localhost:4000/products/${productId}`);
             const data = await response.json();
-            setProductDetails(data); // Actualiza el estado con los detalles del producto
+            setProductDetails(data);
         };
 
         fetchProductDetails();
@@ -20,6 +22,12 @@ const ProductDetailPage = () => {
 
     const handleBack = () => {
         navigate('/main');
+    };
+
+    const handleAddToCart = () => {
+        if (productDetails) {
+            addToCart(productDetails); // Llama a addToCart con los detalles del producto
+        }
     };
 
     return (
@@ -38,11 +46,21 @@ const ProductDetailPage = () => {
                         Detalles del Producto
                     </Typography>
                     {productDetails ? (
-                        <ProductDetailCard
-                            title={productDetails.name}
-                            description={productDetails.description}
-                            available={productDetails.stock > 0}
-                        />
+                        <>
+                            <ProductDetailCard
+                                title={productDetails.name}
+                                description={productDetails.description}
+                                available={productDetails.stock > 0}
+                            />
+                            <Button
+                                variant="contained"
+                                color="secondary"
+                                onClick={handleAddToCart}
+                                sx={{ mt: 2 }}
+                            >
+                                Añadir al Carrito
+                            </Button>
+                        </>
                     ) : (
                         <Typography>Cargando...</Typography>
                     )}
@@ -57,7 +75,8 @@ const ProductDetailPage = () => {
                         borderRadius: '8px',
                         '&:hover': {
                             backgroundColor: '#1565c0',
-                        }
+                        },
+                        mt: 2
                     }}
                 >
                     Volver
