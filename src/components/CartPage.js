@@ -1,9 +1,9 @@
 import React from 'react';
-import { Typography, Container, Grid, Card, CardContent, CardMedia, Button } from '@mui/material';
-import { useCart } from './CartContext'; 
+import { Typography, Container, Grid, Card, CardContent, CardMedia, Button, TextField } from '@mui/material';
+import { useCart } from './CartContext';
 
 const CartPage = () => {
-    const { cartProducts, removeFromCart } = useCart(); 
+    const { cartProducts, removeFromCart } = useCart();
 
     return (
         <Container sx={{ py: 8 }}>
@@ -22,7 +22,7 @@ const CartPage = () => {
                                 <CardMedia
                                     component="img"
                                     sx={{ pt: '56.25%' }}
-                                    image={product.image}
+                                    image={product.image || 'https://via.placeholder.com/150'}
                                     alt={product.name}
                                 />
                                 <CardContent sx={{ flexGrow: 1 }}>
@@ -32,6 +32,11 @@ const CartPage = () => {
                                     <Typography variant="h6" color="text.primary">
                                         {product.price}
                                     </Typography>
+                                    <TextField
+                                        type="text"
+                                        value={product.quantity}
+                                        aria-readonly={true}
+                                    />
                                 </CardContent>
                                 <Button variant="contained" color="secondary" onClick={() => removeFromCart(product.id)}>
                                     Eliminar del carrito
