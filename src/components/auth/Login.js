@@ -30,6 +30,7 @@ const Login = () => {
 
             if (response.ok) {
                 sessionStorage.setItem('token', data.token);  // Almacenar el token en sessionStorage
+                sessionStorage.setItem('userId', data.user.id);  // Almacenar el ID del usuario en sessionStorage
                 navigate('/main');  // Navegar a la página principal tras el inicio de sesión exitoso
             } else {
                 alert('Error en el inicio de sesión: ' + (data.message || 'Error desconocido'));  // Mostrar mensaje de error

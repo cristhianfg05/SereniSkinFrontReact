@@ -1,18 +1,49 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, TextField, Box, Typography, Paper, Grid } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
     const navigate = useNavigate();
+    const [email, setEmail] = useState('');
+    const [fullName, setFullName] = useState('');
+    const [password, setPassword] = useState('');
+    const [address, setAddress] = useState('');
+    const [phone, setPhone] = useState('');
 
-    const handleRegister = () => {
-        // Aquí añadirías la lógica de registro
-        // Si es exitosa, redirigir a la página principal
-        navigate('/main');
+    const handleRegister = async () => {
+        const user = {
+            email: email,
+            username: email.split('@')[0],  // Assuming the username is derived from the email
+            password_hash: password,  // Consider hashing this password client-side or preferably server-side
+            full_name: fullName,
+            address: address,
+            phone: phone
+        };
+
+        try {
+            const response = await fetch('http://localhost:4000/users', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(user)
+            });
+            const data = await response.json();
+            if (response.ok) {
+                console.log('Registration successful:', data);
+                navigate('/main');
+            } else {
+                console.log('Registration failed:', data.message);
+                alert('Registration failed: ' + data.message);
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('An error occurred. Please try again.');
+        }
     };
 
     return (
-        <Box 
+        <Box
             sx={{
                 height: '100vh',
                 display: 'flex',
@@ -32,38 +63,64 @@ const Register = () => {
                         </Typography>
                     </Grid>
                     <Grid item width="100%">
-                        <TextField 
-                            label="Email" 
-                            variant="outlined" 
-                            fullWidth 
-                            margin="normal" 
+                        <TextField
+                            label="Email"
+                            variant="outlined"
+                            fullWidth
+                            margin="normal"
+                            value={email}
+                            onChange={e => setEmail(e.target.value)}
                         />
                     </Grid>
                     <Grid item width="100%">
-                        <TextField 
-                            label="Nombre Completo" 
-                            variant="outlined" 
-                            fullWidth 
-                            margin="normal" 
+                        <TextField
+                            label="Nombre Completo"
+                            variant="outlined"
+                            fullWidth
+                            margin="normal"
+                            value={fullName}
+                            onChange={e => setFullName(e.target.value)}
                         />
                     </Grid>
                     <Grid item width="100%">
-                        <TextField 
-                            label="Contraseña" 
-                            type="password" 
-                            variant="outlined" 
-                            fullWidth 
-                            margin="normal" 
+                        <TextField
+                            label="Contraseña"
+                            type="password"
+                            variant="outlined"
+                            fullWidth
+                            margin="normal"
+                            value={password}
+                            onChange={e => setPassword(e.target.value)}
                         />
                     </Grid>
                     <Grid item width="100%">
-                        <Button 
-                            variant="contained" 
-                            color="primary" 
-                            fullWidth 
-                            sx={{ 
-                                fontSize: '1rem', 
-                                padding: '0.75rem', 
+                        <TextField
+                            label="Dirección"
+                            variant="outlined"
+                            fullWidth
+                            margin="normal"
+                            value={address}
+                            onChange={e => setAddress(e.target.value)}
+                        />
+                    </Grid>
+                    <Grid item width="100%">
+                        <TextField
+                            label="Teléfono"
+                            variant="outlined"
+                            fullWidth
+                            margin="normal"
+                            value={phone}
+                            onChange={e => setPhone(e.target.value)}
+                        />
+                    </Grid>
+                    <Grid item width="100%">
+                        <Button
+                            variant="contained"
+                            color="primary"
+                            fullWidth
+                            sx={{
+                                fontSize: '1rem',
+                                padding: '0.75rem',
                                 boxShadow: 2,
                                 borderRadius: '8px',
                                 '&:hover': {
