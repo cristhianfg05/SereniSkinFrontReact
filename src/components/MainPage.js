@@ -34,6 +34,10 @@ const MainPage = () => {
         navigate(`/product/${productId}`);
     };
 
+    const handleCompras = () => {
+        navigate('/purchases');
+    };
+
     return (
         <Box>
             <AppBar position="static">
@@ -44,6 +48,7 @@ const MainPage = () => {
                     <Button color="inherit" onClick={handleAccount}>Mi Cuenta</Button>
                     <Button color="inherit" onClick={handleCart}>Carrito</Button>
                     <Button color="inherit" onClick={handleLogout}>Cerrar Sesión</Button>
+                    <Button color="inherit" onClick={handleCompras}>Mis compras</Button>
                 </Toolbar>
             </AppBar>
             <Container sx={{ py: 8 }}>

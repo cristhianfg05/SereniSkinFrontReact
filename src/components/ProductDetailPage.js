@@ -67,7 +67,7 @@ const ProductDetailPage = () => {
             });
             if (response.ok) {
                 setComment('');
-                
+
             } else {
                 alert('No se pudo publicar el comentario.');
             }

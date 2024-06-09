@@ -9,6 +9,7 @@ import AccountPage from './components/AccountPage';
 import ProductDetailPage from './components/ProductDetailPage';
 import CartPage from './components/CartPage';
 import PrivateRoute from './components/PrivateRoute';
+import PurchasePage from "./components/PurchasePage";
 
 function App() {
     return (
@@ -22,6 +23,7 @@ function App() {
                     <Route path="/account" element={<PrivateRoute><AccountPage /></PrivateRoute>} />
                     <Route path="/cart" element={<PrivateRoute><CartPage /></PrivateRoute>} />
                     <Route path="/product/:productId" element={<PrivateRoute><ProductDetailPage /></PrivateRoute>} />
+                    <Route path="/purchases" element={<PrivateRoute><PurchasePage/></PrivateRoute>}/>
                     <Route path="*" element={<Navigate to="/" />} />
                 </Routes>
             </CartProvider>
